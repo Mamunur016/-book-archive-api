@@ -14,7 +14,7 @@ const searchBook = () => {
 
         document.getElementById('found').innerHTML = ` <h4 class="text-danger text-center">Please Enter  book name!</h4>`;
         const searchResult = document.getElementById('search-result');
-        searchResult.textContent = '';
+        searchResult.textContent = '';       /// set privous value empty
 
     }
     else {
@@ -33,38 +33,18 @@ const searchBook = () => {
 // display error function
 const displayError = error => {
     document.getElementById('error-message').style.display = 'block';
-    document.getElementById('search-result').textContent = '';
-    document.getElementById('found').textContent = '';
+    document.getElementById('search-result').textContent = '';  /// set privous value empty
+    document.getElementById('found').textContent = '';         /// set privous value empty
 
 
 }
 
 
-// {
-//     console.log(data);
-//     for (let name of data.docs) {
-//         console.log(name.title);
-//         console.log(name.first_publish_year);
-
-//         if (name?.author_name) {
-//             console.log(...name.author_name);
-//             // for (let iterator of name.author_name) {
-//             //     console.log(iterator);
-//             // }
-//         }
-//         console.log('new books');
-//     }
-// }
-
-
-
 // display search result function
 
 const displaySearchResult = (data, books) => {
-    console.log(data.numFound);
-    console.log(data);
-    console.log(books);
 
+    // condition for found/not found number
     if (data.numFound === 0) {
         document.getElementById('found').innerHTML = ` <h4 class="text-danger text-center mb-4">No Result found</h4>`;
     }
@@ -73,23 +53,26 @@ const displaySearchResult = (data, books) => {
     }
 
     const searchResult = document.getElementById('search-result');
-    searchResult.textContent = '';
+    searchResult.textContent = '';         /// set privous value empty
+
+    // set the each book value in card
     books.forEach(book => {
 
         const div = document.createElement('div');
         div.classList.add('col');
 
-        if (book.first_publish_year === undefined) {
-            book.first_publish_year = '';
 
-        }
         if (book.author_name === undefined) {
             book.author_name = '';
         }
         if (book.publisher === undefined) {
             book.publisher = '';
         }
+        if (book.first_publish_year === undefined) {
+            book.first_publish_year = '';
 
+        }
+        // dynamically set different value for each book
         div.innerHTML = `
             <div class="card h-100 p-3 border-0 shadow rounded-3">
                     <div class="px-2">
@@ -97,7 +80,7 @@ const displaySearchResult = (data, books) => {
                     </div>
                     <div class="card-body">
 
-                        <h4 class="card-title">Book Name: <small class='text-primary'>${book.title} </small> </h4>
+                        <h5 class="card-title">Book Name: <small class='text-primary'>${book.title} </small> </h5>
                         
                         <h5>Writer: <small class='text-primary'>${book.author_name} </small> </h5>
                         <h5>Publisher: <small class='text-primary'>${book.publisher} </small> </h5>
