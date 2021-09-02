@@ -1,3 +1,4 @@
+
 document.getElementById('error-message').style.display = 'none';
 
 // event handler for searchBook function
@@ -32,9 +33,9 @@ const searchBook = () => {
 // display error function
 const displayError = error => {
     document.getElementById('error-message').style.display = 'block';
-    const searchResult = document.getElementById('search-result');
+    document.getElementById('search-result').textContent = '';
     document.getElementById('found').textContent = '';
-    searchResult.textContent = '';
+
 
 }
 
@@ -62,14 +63,15 @@ const displayError = error => {
 const displaySearchResult = (data, books) => {
     console.log(data.numFound);
     console.log(data);
-    console.log(Object.keys(data).length);
     console.log(books);
+
     if (data.numFound === 0) {
         document.getElementById('found').innerHTML = ` <h4 class="text-danger text-center mb-4">No Result found</h4>`;
     }
     else {
         document.getElementById('found').innerHTML = ` <h4 class="text-success text-center mb-4">${data.numFound} Result found</h4>`;
     }
+
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     books.forEach(book => {
@@ -89,24 +91,25 @@ const displaySearchResult = (data, books) => {
         }
 
         div.innerHTML = `
-        
-   
-        <div class="card h-100 p-2">
-                    <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" class="card-img-top" style="height: 400px;" alt="...">
-                   <div class="card-body">
-                       <h6 class="card-title">Book Name: <small class='text-primary'>${book.title} </small> </h6>
-                       
-                       <h6>writer: <small class='text-primary'>${book.author_name} </small> </h6>
-                        <h6>publisher: <small class='text-primary'>${book.publisher} </small> </h6>
-                        
-                        <h6> First_published_year: <small class='text-primary'>${book.first_publish_year} </small> </h6>
-
-                      
-                        
-                      
-                        
+            <div class="card h-100 p-3 border-0 shadow rounded-3">
+                    <div class="px-2">
+                        <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg" class="card-img-top" style="height: 400px;" alt="...">
                     </div>
-        </div>
+                    <div class="card-body">
+
+                        <h4 class="card-title">Book Name: <small class='text-primary'>${book.title} </small> </h4>
+                        
+                        <h5>Writer: <small class='text-primary'>${book.author_name} </small> </h5>
+                        <h5>Publisher: <small class='text-primary'>${book.publisher} </small> </h5>
+                            
+                        <h5> First_published_year: <small class='text-primary'>${book.first_publish_year} </small> </h5>
+
+                        
+                            
+                        
+                            
+                    </div>
+            </div>
         `;
         searchResult.appendChild(div);
     });
